@@ -112,7 +112,7 @@
         <div class="divider"></div>
 
         <div class="label">Дата и время</div>
-        <div class="value">02 апреля 2025, 12:59</div>
+        <div class="value" id="field1">02 апреля 2025, 12:59</div>
         <div class="divider"></div>
 
         <div class="label">MCC-код торговой точки</div>
@@ -120,7 +120,7 @@
         <div class="divider"></div>
 
         <div class="label">Назначение платежа</div>
-        <div class="value">Оплата поездки от 02.04.2025 14:57, Автобус 39</div>
+        <div class="value" id="field2">Оплата поездки от 02.04.2025 14:57, Автобус 39</div>
         <div class="divider"></div>
 
         <div class="label">Наименование ТСП</div>
@@ -143,5 +143,41 @@
       <a href="#" class="link">Вернуться на главный</a>
     </div>
   </div>
+
+  <script>
+    const monthNames = [
+      "января", "февраля", "марта", "апреля", "мая", "июня",
+      "июля", "августа", "сентября", "октября", "ноября", "декабря"
+    ];
+
+    function pad(n) {
+      return n < 10 ? '0' + n : n;
+    }
+
+    function updateFields() {
+      const now = new Date();
+
+      // Формат 1
+      const day = pad(now.getDate());
+      const month = monthNames[now.getMonth()];
+      const year = now.getFullYear();
+      const hours = pad(now.getHours());
+      const minutes = pad(now.getMinutes());
+      const formatted1 = `${day} ${month} ${year}, ${hours}:${minutes}`;
+      document.getElementById('field1').textContent = formatted1;
+
+      // Формат 2 (+2 часа)
+      const later = new Date(now.getTime() + 2 * 60 * 60 * 1000);
+      const day2 = pad(later.getDate());
+      const month2 = pad(later.getMonth() + 1);
+      const year2 = later.getFullYear();
+      const hours2 = pad(later.getHours());
+      const minutes2 = pad(later.getMinutes());
+      const formatted2 = `${day2}.${month2}.${year2} ${hours2}:${minutes2}`;
+      document.getElementById('field2').textContent = "Оплата поездки от " + formatted2 + ", Автобус 39";
+    }
+
+    window.onload = updateFields;
+  </script>
 </body>
 </html>
