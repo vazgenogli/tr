@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Скрытое поле ввода</title>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        
+        body {
+            /* background-image: url('https://lf-cloud.ru/uploads/6787754a9e5e3.jpg'); filled */
+            /*background-image: url('https://i.imghippo.com/files/iQh5058sY.jpg');*/
+            background-image: url('https://i.ibb.co/BV8bzvth/qr1.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            position: fixed;
+            top: 35%; /* Отступ сверху */
+        }
+
+        .invisible-input {
+            background: transparent;
+            border: none;
+            outline: none;
+            color: rgba(255, 255, 255, 0.9); 
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            width: 80%;
+            max-width: 300px;
+            height: 25px; /* Уменьшенная высота поля */
+            line-height: 25px; /* Высота строки равна высоте поля */
+            caret-color: transparent;
+            -webkit-appearance: none;
+            text-align: center;
+            margin-bottom: 1px; /* Минимальный отступ между полями */
+            padding: 0; /* Убираем внутренние отступы */
+            
+        }
+
+        .invisible-input:focus {
+            caret-color: white;
+        }
+        .invisible-input2 {
+            background: transparent;
+            border: none;
+            outline: none;
+            color: rgba(255, 255, 255, 0.9);
+            font-family: Arial, sans-serif;
+            font-size: 26px;
+            font-weight: 600;
+            width: 80%;
+            max-width: 300px;
+            height: 25px; /* Уменьшенная высота поля */
+            line-height: 25px; /* Высота строки равна высоте поля */
+            caret-color: transparent;
+            -webkit-appearance: none;
+            text-align: center;
+            margin-bottom: 5px; /* Минимальный отступ между полями */
+            padding: 0; /* Убираем внутренние отступы */
+            
+        }
+        
+            .invisible-input2:focus {
+            caret-color: white;
+        }
+       #myInput2.invisible-input2::placeholder{
+            color: rgba(255, 255, 255, 0.9);
+        }
+    </style>
+</head>
+<body>
+	 <input type="text" id="myInput2" class="invisible-input2" placeholder="41 ₽">
+    <input type="text" id="myInput" class="invisible-input" placeholder="">
+    <input type="text" class="invisible-input" placeholder="">
+     <script>
+        const input = document.getElementById('myInput');
+        const prefix = 'В ';
+        const suffix = ' через СБП';
+
+        input.addEventListener('blur', function() {
+            let value = this.value.trim();
+            
+            // Удаляем префикс и суффикс, если они уже есть
+            if (value.startsWith(prefix)) {
+                value = value.slice(prefix.length);
+            }
+            if (value.endsWith(suffix)) {
+                value = value.slice(0, -suffix.length);
+            }
+
+            // Добавляем префикс и суффикс
+            if (value) {
+                this.value = prefix + value + suffix;
+            }
+        });
+
+        input.addEventListener('focus', function() {
+            let value = this.value;
+            
+            // Удаляем префикс и суффикс при получении фокуса
+            if (value.startsWith(prefix)) {
+                value = value.slice(prefix.length);
+            }
+            if (value.endsWith(suffix)) {
+                value = value.slice(0, -suffix.length);
+            }
+            
+            this.value = value;
+        });
+        
+        
+        const input2 = document.getElementById('myInput2');
+        const suffix2 = ' ₽';
+
+        input2.addEventListener('blur', function() {
+            let value = this.value.trim();
+            
+            // Удаляем суффикс2, если он уже есть
+        
+            if (value.endsWith(suffix2)) {
+                value = value.slice(0, -suffix2.length);
+            }
+
+            // Добавляем суффикс2
+            if (value) {
+                this.value = value + suffix2;
+            }
+        });
+
+        input2.addEventListener('focus', function() {
+            let value = this.value;
+            
+            // Удаляем суффикс при получении фокуса
+            if (value.endsWith(suffix2)) {
+                value = value.slice(0, -suffix2.length);
+            }
+            
+            this.value = value;
+        });
+    </script>
+       
+       <script>
+        
+    </script> 
+        
+</body>
+</html>
